@@ -36,5 +36,6 @@ export const Text = styled.p`
 
   a {
     color: #2D9CDB;
+    text-decoration: none;
   }
 `;

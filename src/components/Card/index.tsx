@@ -8,6 +8,7 @@ import google from '../../assets/Google.svg';
 import facebook from '../../assets/Facebook.svg';
 import twitter from '../../assets/Twitter.svg';
 import github from '../../assets/Github.svg';
+import Link from 'next/link';
 
 interface Props {
   register?: boolean;
@@ -54,9 +55,9 @@ const Card = ({register}: Props) => {
 
       {
         !register ? (
-          <S.Text>Don&apos;t have an account yet? <a>Register</a></S.Text>
+          <S.Text>Don&apos;t have an account yet? <Link href={'/register'}>Register</Link></S.Text>
         ) : (
-          <S.Text>Already a member? <a>Login</a></S.Text>
+          <S.Text>Already a member? <Link href={'/login'}>Login</Link></S.Text>
         )
       }  {/* temporary anchor */}
     </>
