@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import LoginCard from '../components/LoginCard';
+import * as S from '../styles/index';
 
 export default function Home() {
   return (
@@ -10,6 +12,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <S.Container>
+        <S.Wrapper>
+          <LoginCard />
+        </S.Wrapper>
+      </S.Container>
     </>
   );
 }
