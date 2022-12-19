@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 interface Props {
   isHeader?: boolean;
+  isActive?: boolean;
 }
 
 export const Container = styled.main`
@@ -20,6 +21,7 @@ export const HeaderInfo = styled.div`
   display: flex;
   align-items: center;
   gap: .75rem;
+  position: relative;
 
   img {
     border-radius: 8px;
@@ -32,6 +34,56 @@ export const HeaderInfo = styled.div`
 
   svg {
     cursor: pointer;
+  }
+`;
+
+export const OptionContainer = styled.div`
+  position: absolute;
+  bottom: -158px;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  width: 100%;
+  max-width: 188px;
+  padding: .75rem;
+
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+
+  hr {
+    border: 1px solid #E0E0E0;
+    margin-top: 6px;
+  }
+`;
+
+export const Option = styled.div<Props>`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: ${props => props.isActive ? '#F2F2F2' : 'transparent'};
+  border-radius: 8px;
+
+  cursor: pointer;
+  transition: all .3s ease;
+
+  & > span {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.035em;
+
+    color: #4F4F4F;
+  }
+
+  &:hover {
+    transition: all .3s ease;
+    background-color: #F2F2F2;
   }
 `;
 

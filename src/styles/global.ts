@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     font-family: 'Noto Sans', sans-serif;
     font-size: 16px;
-    background-color: rgba(255, 254, 254);
+    background-color: #FBFBFB;
   }
 
   button {

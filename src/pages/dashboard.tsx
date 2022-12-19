@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Head from 'next/head';
 
-import { MdKeyboardArrowDown } from 'react-icons/md';
+import { MdKeyboardArrowDown, MdOutlineGroup, MdAccountCircle, MdLogout } from 'react-icons/md';
 
 import * as S from '../styles/dashboard';
 import pfpPlaceholder from '../assets/Profile_avatar_placeholder_large.png';
@@ -26,6 +26,25 @@ const Dashboard = () => {
           <Image src={pfpPlaceholder} width={32} height={32} alt='profile image'/>
           <span>Xanthe Neal</span>
           <MdKeyboardArrowDown />
+
+          <S.OptionContainer>
+            <S.Option isActive={true}>
+              <MdAccountCircle size={20} color={'#4F4F4F'}/>
+              <span>My Profile</span>
+            </S.Option>
+
+            <S.Option isActive={false}>
+              <MdOutlineGroup size={20} color={'#4F4F4F'}/>
+              <span>Group Chat</span>
+            </S.Option>
+
+            <hr />
+
+            <S.Option isActive={false}>
+              <MdLogout size={20} color={'#EB5757'}/>
+              <span style={{color: '#EB5757'}}>Logout</span>
+            </S.Option>
+          </S.OptionContainer>
         </S.HeaderInfo>
       </S.HeaderContainer>
 
