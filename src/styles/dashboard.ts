@@ -3,12 +3,17 @@ import styled from 'styled-components';
 interface Props {
   isHeader?: boolean;
   isActive?: boolean;
+  isOpen?: boolean;
 }
 
 export const Container = styled.main`
   width: 100%;
   height: 100vh;
   padding: 1.5rem 4.5rem;
+
+  @media (max-width: 600px) {
+    padding: 1rem;
+  }
 `;
 
 export const HeaderContainer = styled.header`
@@ -17,7 +22,7 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
 `;
 
-export const HeaderInfo = styled.div`
+export const HeaderInfo = styled.div<Props>`
   display: flex;
   align-items: center;
   gap: .75rem;
@@ -25,6 +30,7 @@ export const HeaderInfo = styled.div`
 
   img {
     border-radius: 8px;
+    cursor: pointer;
   }
 
   span {
@@ -32,8 +38,20 @@ export const HeaderInfo = styled.div`
     cursor: pointer;
   }
 
-  svg {
+  & > svg {
     cursor: pointer;
+    transform: ${props => props.isOpen ? 'rotate(180deg)' : ''};
+    transition: all .3s ease;
+  }
+
+  @media (max-width: 600px) {
+    & > span {
+      display: none;
+    }
+
+    & > svg {
+      display: none;
+    }
   }
 `;
 
@@ -46,8 +64,7 @@ export const OptionContainer = styled.div`
   flex-direction: column;
   gap: 6px;
 
-  width: 100%;
-  max-width: 188px;
+  width: 188px;
   padding: .75rem;
 
   background: #FFFFFF;
@@ -161,6 +178,14 @@ export const ContentSection = styled.div<Props>`
       color: #828282;
     }
   }
+
+  @media (max-width: 768px) {
+    justify-content: space-between;
+  }
+
+  @media (max-width: 600px) {
+    padding: 2rem 1rem;
+  }
 `;
 
 export const Title = styled.span`
@@ -173,4 +198,8 @@ export const Title = styled.span`
   letter-spacing: -0.035em;
 
   color: #BDBDBD;
+
+  @media (max-width: 768px) {
+    width: fit-content;
+  }
 `;

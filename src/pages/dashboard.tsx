@@ -7,8 +7,12 @@ import * as S from '../styles/dashboard';
 import pfpPlaceholder from '../assets/Profile_avatar_placeholder_large.png';
 import logo from '../assets/devchallenges.svg';
 import Button from '../components/Button';
+import { useState } from 'react';
 
 const Dashboard = () => {
+  const [options, setOptions] = useState(false);
+
+
   return (
     <S.Container>
 
@@ -22,29 +26,33 @@ const Dashboard = () => {
       <S.HeaderContainer>
         <Image src={logo} width={120} height={18} alt='logo' />
 
-        <S.HeaderInfo>
+        <S.HeaderInfo onClick={() => setOptions(prev => !prev)} isOpen={options}>
           <Image src={pfpPlaceholder} width={32} height={32} alt='profile image'/>
           <span>Xanthe Neal</span>
           <MdKeyboardArrowDown />
+          {
+            options && (
 
-          <S.OptionContainer>
-            <S.Option isActive={true}>
-              <MdAccountCircle size={20} color={'#4F4F4F'}/>
-              <span>My Profile</span>
-            </S.Option>
+              <S.OptionContainer>
+                <S.Option isActive={true}>
+                  <MdAccountCircle size={20} color={'#4F4F4F'}/>
+                  <span>My Profile</span>
+                </S.Option>
 
-            <S.Option isActive={false}>
-              <MdOutlineGroup size={20} color={'#4F4F4F'}/>
-              <span>Group Chat</span>
-            </S.Option>
+                <S.Option isActive={false}>
+                  <MdOutlineGroup size={20} color={'#4F4F4F'}/>
+                  <span>Group Chat</span>
+                </S.Option>
 
-            <hr />
+                <hr />
 
-            <S.Option isActive={false}>
-              <MdLogout size={20} color={'#EB5757'}/>
-              <span style={{color: '#EB5757'}}>Logout</span>
-            </S.Option>
-          </S.OptionContainer>
+                <S.Option isActive={false}>
+                  <MdLogout size={20} color={'#EB5757'}/>
+                  <span style={{color: '#EB5757'}}>Logout</span>
+                </S.Option>
+              </S.OptionContainer>
+            )
+          }
         </S.HeaderInfo>
       </S.HeaderContainer>
 
