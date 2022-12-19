@@ -24,6 +24,7 @@ export const Input = styled.input`
   border: none;
   outline: none;
   font-size: 16px;
+  font-family: 'Noto Sans', sans-serif;
 
   &::placeholder {
     color: #828282;
