@@ -9,16 +9,29 @@ import facebook from '../../assets/Facebook.svg';
 import twitter from '../../assets/Twitter.svg';
 import github from '../../assets/Github.svg';
 
-const LoginCard = () => {
+interface Props {
+  register?: boolean;
+}
+
+const Card = ({register}: Props) => {
   return (
     <>
       <S.Header>
         <Image src={logo} width={120} height={18} alt='logo'/>
       </S.Header>
 
-      <h3>Login</h3>
+      {
+        !register ? (
+          <h3>Login</h3>
+        ) : (
+          <>
+            <h3>Join thousands of learners from around the world</h3>
+            <p>Master web development by making real-life projects. There are multiple paths for you to choose</p>
+          </>
+        )
+      }
 
-      <Form />
+      <Form register={register ? register : false}/>
 
       <S.MediaContainer>
         <span>or continue with these social profile</span>
@@ -39,9 +52,15 @@ const LoginCard = () => {
         </S.Media>
       </S.MediaContainer>
 
-      <S.Text>Don&apos;t have an account yet? <a>Register</a></S.Text> {/* temporary anchor */}
+      {
+        !register ? (
+          <S.Text>Don&apos;t have an account yet? <a>Register</a></S.Text>
+        ) : (
+          <S.Text>Already a member? <a>Login</a></S.Text>
+        )
+      }  {/* temporary anchor */}
     </>
   );
 };
 
-export default LoginCard;
+export default Card;
