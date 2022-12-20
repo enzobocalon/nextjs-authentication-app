@@ -57,7 +57,7 @@ const Card = ({register}: Props) => {
         !register ? (
           <S.Text>Don&apos;t have an account yet? <Link href={'/register'}>Register</Link></S.Text>
         ) : (
-          <S.Text>Already a member? <Link href={'/login'}>Login</Link></S.Text>
+          <S.Text>Already a member? <Link href={'/'}>Login</Link></S.Text>
         )
       }  {/* temporary anchor */}
     </>
