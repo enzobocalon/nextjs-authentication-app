@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import * as S from './styles';
 import logo from '../../assets/devchallenges.svg';
@@ -8,7 +9,6 @@ import google from '../../assets/Google.svg';
 import facebook from '../../assets/Facebook.svg';
 import twitter from '../../assets/Twitter.svg';
 import github from '../../assets/Github.svg';
-import Link from 'next/link';
 
 interface Props {
   register?: boolean;

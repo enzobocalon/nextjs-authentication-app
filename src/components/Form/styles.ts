@@ -30,3 +30,7 @@ export const Input = styled.input`
     color: #828282;
   }
 `;
+
+export const Errors = styled.span`
+  color: #EB5757;
+`;
