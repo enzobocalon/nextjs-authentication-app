@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { signOut } from 'next-auth/react';
 
 import { MdOutlineArrowBackIosNew, MdPhotoCamera } from 'react-icons/md';
 
@@ -11,6 +12,7 @@ import * as S from './styles';
 import axios from 'axios';
 import { User } from '../../types/User';
 import { Dispatch, SetStateAction } from 'react';
+import { useRouter } from 'next/dist/client/router';
 
 interface Form {
   name: string,
@@ -27,6 +29,7 @@ interface Props {
 
 const ProfileChanger = ({ session, setIsEditing }: Props) => {
   const { register, handleSubmit } = useForm();
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = async ({name, avatar_url, bio, password, phone}) => {
     if (!session.id) {
@@ -47,7 +50,10 @@ const ProfileChanger = ({ session, setIsEditing }: Props) => {
       headers: {
         'Content-Type': 'multipart/form-data',
       }
-    }).then(() => window.location.reload());
+    }).then(() => {
+      signOut();
+      router.push('/');
+    });
   };
   return (
     <S.Container>

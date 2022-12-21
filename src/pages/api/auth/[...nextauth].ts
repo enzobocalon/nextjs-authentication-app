@@ -1,6 +1,7 @@
 import NextAuth, {NextAuthOptions} from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import GitHubProvider from 'next-auth/providers/github';
+import GithubProvider from 'next-auth/providers/github';
+
 import { verifyPassword } from '../../../lib/auth';
 import { connectToDatabase } from '../../../lib/db';
 
@@ -51,20 +52,19 @@ const authOptions: NextAuthOptions = {
         };
       }
     }),
-    // GitHubProvider({
-
-    // })
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({token, user}) {
+    async jwt({ token, user}) {
       return {
-        ...user, ...token
+        ...user, ...token,
       };
     },
     async session({session, user, token}) {
       return {
         ...session,
-        ...token
+        ...token,
+        ...user
       };
     }
   }
