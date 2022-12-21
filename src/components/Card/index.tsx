@@ -59,7 +59,7 @@ const Card = ({register}: Props) => {
         ) : (
           <S.Text>Already a member? <Link href={'/'}>Login</Link></S.Text>
         )
-      }  {/* temporary anchor */}
+      }
     </>
   );
 };

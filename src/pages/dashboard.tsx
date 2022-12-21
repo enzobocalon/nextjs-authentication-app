@@ -21,7 +21,6 @@ interface Props {
 const Dashboard = ({ session }: Props) => {
   const [options, setOptions] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  console.log(isEditing);
   return (
     <S.Container>
 
