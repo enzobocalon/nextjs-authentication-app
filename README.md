@@ -1,8 +1,6 @@
 ### NextJS with NextAuth Authentication App
 This is my first authentication project, and therefore my first project using NextAuth!
-The Vercel version doesn't have fully support to the project, since it requires a storage disk to
-save images, but you can register and login using the version hosted on Vercel (just can't update your data).
-You can, however, clone the repo and install the dependencies using
+You can clone the repo and install the dependencies using
 
 ```txt
 
