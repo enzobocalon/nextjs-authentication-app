@@ -9,7 +9,7 @@ $ yarn install
 $ yarn dev
 
 ```
-Set a .env file on the root of the project, and set a ID of "MONGODB_URI" with the MONGODB url that you're going to use.
+Set a .env file on the root of the project, and set an ID of "MONGODB_URI" with the MONGODB url that you're going to use.
 With this setup you should be able to fully access the features of the project: login, register and update your data.
 
 I look forward to learn more about authentication and NextJS/NextAuth with other projects. You can login using credentials or with Google.
