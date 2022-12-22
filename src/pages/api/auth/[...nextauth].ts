@@ -48,8 +48,6 @@ const options: NextAuthOptions = {
           throw new Error('No user found');
         }
 
-        console.log(user);
-
         client.close();
         return {
           id: user._id.toString(),

@@ -143,8 +143,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       email: session.email
     });
 
-    console.log(user);
-
     if (!user) {
       return {
         props: {}
