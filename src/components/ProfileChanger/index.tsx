@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 import { MdOutlineArrowBackIosNew, MdPhotoCamera } from 'react-icons/md';
 
@@ -10,47 +11,37 @@ import Button from '../Button';
 
 import * as S from './styles';
 import axios from 'axios';
-import { User } from '../../types/User';
 import { Dispatch, SetStateAction } from 'react';
-import { useRouter } from 'next/dist/client/router';
 
-interface Form {
-  name: string,
-  bio: string,
-  phone: string,
-  password: string,
-  avatar_url: FileList
-}
+import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
 
 interface Props {
-  session: User;
   setIsEditing: Dispatch<SetStateAction<boolean>>
 }
 
-const ProfileChanger = ({ session, setIsEditing }: Props) => {
+const ProfileChanger = ({ setIsEditing }: Props) => {
+  const {data: session} = useSession();
   const { register, handleSubmit } = useForm();
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<FieldValues> = async ({name, avatar_url, bio, password, phone}) => {
-    if (!session.id) {
-      return;
-    }
+  const onSubmit: SubmitHandler<FieldValues> = async ({name, bio, password, phone}) => {
 
-    const formData = new FormData();
-    formData.append('image', avatar_url[0]);
-    formData.append('user', JSON.stringify({
-      name: name ? name : null,
-      bio: bio ? bio : null,
-      password: password ? password : null,
-      phone: phone ? phone : null,
-      id: session.id,
-      avatar_url: avatar_url[0] ? avatar_url[0] : null
-    }));
-    await axios.post('/api/auth/update', formData, {
+    const dataObject = {
+      id: session?.id,
+      name,
+      bio,
+      password,
+      phone,
+      email: session?.user?.email
+    };
+
+    await axios.post('/api/auth/update', dataObject, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/json',
       }
     }).then(() => {
+      toast.success('User informations changed!');
       signOut();
       router.push('/');
     });
@@ -68,14 +59,13 @@ const ProfileChanger = ({ session, setIsEditing }: Props) => {
 
         <S.InfoContainer>
           <Image
-            src={session?.avatar_url !== 'undefined' ? `/uploads/profiles/${session.avatar_url}` : pfpPlaceholder}
+            src={session?.user && session.user.image ? session.user.image : pfpPlaceholder}
             width={72}
             height={72}
             alt='profile image'/>
           <S.ImageOverlay>
             <input
-              type={'file'}
-              {...register('avatar_url')} />
+              type={'file'} disabled/>
             <MdPhotoCamera color='#FFFFFF' size={20}/>
           </S.ImageOverlay>
           <span>CHANGE PHOTO</span>
@@ -106,14 +96,15 @@ const ProfileChanger = ({ session, setIsEditing }: Props) => {
 
           <S.FormContent>
             <span>Email</span>
-            <S.FixedInput>{session.email}</S.FixedInput>
+            <S.FixedInput>{session?.user ? session.user.email : 'None'}</S.FixedInput>
           </S.FormContent>
 
           <S.FormContent>
             <span>Password</span>
             <S.Input
               placeholder='Enter your password...'
-              {...register('password')}/>
+              {...register('password')}
+              type='password'/>
           </S.FormContent>
 
           <Button isEdit={false} maxWidth={85}>Save</Button>

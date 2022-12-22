@@ -10,6 +10,8 @@ import facebook from '../../assets/Facebook.svg';
 import twitter from '../../assets/Twitter.svg';
 import github from '../../assets/Github.svg';
 
+import { signIn } from 'next-auth/react';
+
 interface Props {
   register?: boolean;
 }
@@ -38,7 +40,9 @@ const Card = ({register}: Props) => {
         <span>or continue with these social profile</span>
 
         <S.Media>
-          <S.Icon>
+          <S.Icon onClick={() => signIn('google', {
+            callbackUrl: '/dashboard'
+          })}>
             <Image src={google} width={42} height={42} alt='google'/>
           </S.Icon>
           <S.Icon>

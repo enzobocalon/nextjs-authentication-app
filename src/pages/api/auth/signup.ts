@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const client = await connectToDatabase();
   const db = client.db();
 
-  const userAlreadyExists = await db.collection('users').findOne({email: email});
+  const userAlreadyExists = await db.collection('profile').findOne({email: email});
 
   if (userAlreadyExists) {
     res.status(422).json({
@@ -37,13 +37,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const hashedPassword = await hashPassword(password);
 
-  const result = await db.collection('users').insertOne({
+  const result = await db.collection('profile').insertOne({
     email,
     password: hashedPassword,
     name: 'undefined',
     bio: 'undefined',
     phone: 'undefined',
-    avatar_url: 'undefined'
+    type: 'credentials'
   });
 
   if (result) {

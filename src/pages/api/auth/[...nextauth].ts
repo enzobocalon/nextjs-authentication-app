@@ -1,16 +1,23 @@
-import NextAuth, {NextAuthOptions} from 'next-auth';
+import { NextApiRequest, NextApiResponse } from 'next';
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import GithubProvider from 'next-auth/providers/github';
-
-import { verifyPassword } from '../../../lib/auth';
+import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
+import clientPromise from '../../../lib/mongodb';
 import { connectToDatabase } from '../../../lib/db';
+import { verifyPassword } from '../../../lib/auth';
 
-const authOptions: NextAuthOptions = {
+const options: NextAuthOptions = {
+  adapter: MongoDBAdapter(clientPromise),
   session: {
     strategy: 'jwt',
     maxAge: 60 * 60 * 24 // 1 day
   },
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID as string,
+      clientSecret: process.env.GOOGLE_SECRET as string,
+    }),
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -21,11 +28,11 @@ const authOptions: NextAuthOptions = {
         if (!credentials) {
           return null;
         }
+
         const client = await connectToDatabase();
+        const profileCollection = client.db().collection('profile');
 
-        const usersCollection = client.db().collection('users');
-
-        const user = await usersCollection.findOne({
+        const user = await profileCollection.findOne({
           email: credentials.email
         });
 
@@ -41,6 +48,8 @@ const authOptions: NextAuthOptions = {
           throw new Error('No user found');
         }
 
+        console.log(user);
+
         client.close();
         return {
           id: user._id.toString(),
@@ -48,12 +57,11 @@ const authOptions: NextAuthOptions = {
           bio: user.bio,
           name: user.name,
           phone: user.phone,
-          avatar_url: user.avatar_url
         };
       }
-    }),
+    })
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.JWT_SECRET,
   callbacks: {
     async jwt({ token, user}) {
       return {
@@ -70,6 +78,4 @@ const authOptions: NextAuthOptions = {
   }
 };
 
-export default NextAuth(authOptions);
-
-// https://github.com/DawnMD/next-auth-credentials/tree/next-auth-v4/
+export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, options);
