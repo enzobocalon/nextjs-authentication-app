@@ -1,20 +1,18 @@
+import axios from 'axios';
 import Image from 'next/image';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
+import { Dispatch, SetStateAction } from 'react';
 
+import * as S from './styles';
 import { MdOutlineArrowBackIosNew, MdPhotoCamera } from 'react-icons/md';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-
 import pfpPlaceholder from '../../assets/Profile_avatar_placeholder_large.png';
+
 import Button from '../Button';
-
-import * as S from './styles';
-import axios from 'axios';
-import { Dispatch, SetStateAction } from 'react';
-
-import { useSession } from 'next-auth/react';
-import { toast } from 'react-toastify';
 
 interface Props {
   setIsEditing: Dispatch<SetStateAction<boolean>>

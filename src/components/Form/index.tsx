@@ -5,8 +5,11 @@ import { signIn } from 'next-auth/react';
 
 
 import * as S from './styles';
+
 import { MdEmail, MdLock } from 'react-icons/md';
+
 import Button from '../Button';
+
 import { useRouter } from 'next/dist/client/router';
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;

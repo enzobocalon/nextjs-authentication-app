@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { connectToDatabase } from '../../../lib/db';
 import { ObjectId } from 'mongodb';
+
+import { connectToDatabase } from '../../../lib/db';
 import { hashPassword } from '../../../lib/auth';
 
 export default async function handler(req: NextApiRequest , res: NextApiResponse) {
